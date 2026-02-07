@@ -1,0 +1,288 @@
+GF<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Rose Day 🌹</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --p:#e11d48;
+  --bg1:#fff1f2;
+  --bg2:#ffe4e6;
+  --txt:#4a0f1e;
+}
+body.night{
+  --p:#c084fc;
+  --bg1:#020617;
+  --bg2:#0f172a;
+  --txt:#e0e7ff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Poppins,sans-serif;
+  min-height:100vh;
+  color:var(--txt);
+  background:linear-gradient(120deg,var(--bg1),var(--bg2));
+  background-size:300% 300%;
+  animation:bgmove 10s ease infinite;
+  overflow-x:hidden;
+}
+@keyframes bgmove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* CONTROLS */
+.controls{
+  position:fixed;top:15px;right:15px;
+  display:flex;gap:10px;z-index:1000;
+}
+.ctrl{
+  width:46px;height:46px;border-radius:50%;
+  background:white;display:flex;
+  align-items:center;justify-content:center;
+  cursor:pointer;font-size:1.2rem;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+/* HEADER */
+header{text-align:center;padding:4rem 1rem}
+h1{font-family:Playfair Display;font-size:3rem;color:var(--p)}
+
+/* HERO */
+.hero{text-align:center}
+.flower{
+  font-size:5rem;
+  animation:float 3s ease-in-out infinite;
+}
+body.night .flower{
+  text-shadow:0 0 20px #c084fc;
+}
+@keyframes float{50%{transform:translateY(-15px)}}
+
+.box{
+  background:white;
+  max-width:700px;
+  margin:2rem auto;
+  padding:2.5rem;
+  border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+/* QUESTION */
+.question-box{
+  max-width:600px;
+  margin:3rem auto;
+  padding:2.5rem;
+  background:white;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+.question-box h2{
+  font-family:Playfair Display;
+  margin-bottom:1.5rem;
+}
+.btns{
+  display:flex;
+  justify-content:center;
+  gap:1.5rem;
+  margin-top:1.5rem;
+}
+.btn{
+  padding:.9rem 2.2rem;
+  border-radius:30px;
+  border:none;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.3s;
+}
+.yes{
+  background:var(--p);
+  color:white;
+}
+.yes:hover{
+  transform:scale(1.1);
+}
+.no{
+  background:#e5e7eb;
+}
+
+/* GENERATOR */
+.gen{text-align:center;padding:3rem 1rem}
+.gen input{
+  padding:.8rem 1.2rem;
+  border-radius:30px;border:1px solid #fda4af;
+}
+.gen button{
+  padding:.8rem 2rem;
+  border:none;border-radius:30px;
+  background:var(--p);color:#fff;
+  cursor:pointer;
+}
+#wish{margin-top:1.5rem;font-weight:600}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem;color:white;background:#111}
+
+/* FLOWERS */
+.petal{
+  position:fixed;
+  top:-40px;
+  animation:fall linear infinite;
+  pointer-events:none;
+}
+body.night .petal{
+  filter:drop-shadow(0 0 8px #c084fc);
+}
+@keyframes fall{
+  to{
+    transform:
+      translateY(110vh)
+      translateX(var(--wind))
+      rotate(360deg);
+  }
+}
+
+/* STARS */
+.star{
+  position:fixed;
+  width:2px;height:2px;
+  background:white;
+  opacity:.8;
+}
+.moon{
+  position:fixed;
+  top:40px;left:40px;
+  font-size:3rem;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d3f8bdf0b.mp3">
+</audio>
+
+<div class="controls">
+  <div class="ctrl" onclick="toggleMusic()">🎵</div>
+  <div class="ctrl" onclick="toggleNight()">🌙</div>
+</div>
+
+<header>
+  <h1>Happy Rose Day 🌹</h1>
+  <p>Let happiness bloom</p>
+</header>
+
+<section class="hero">
+  <div class="flower">🌹</div>
+  <div class="box">
+    <h2>A Rose Day Wish</h2>
+    <p>May your days bloom with kindness and smiles.</p>
+  </div>
+</section>
+
+<section class="question-box">
+  <h2>🌸 Will you be my GFF ? 🌸</h2>
+  <div class="btns">
+    <button class="btn yes" onclick="bsfYes()">Of course yes 💖</button>
+    <button class="btn no" id="noBtn" onmouseover="moveNo()">Nooo 🙈</button>
+  </div>
+  <p id="bsfResult" style="margin-top:1.5rem;font-weight:600;"></p>
+</section>
+
+<section class="gen">
+  <h2>📝 Generate a Wish</h2>
+  <input id="name" placeholder="Enter a name">
+  <br><br>
+  <button onclick="generateWish()">Generate</button>
+  <div id="wish"></div>
+</section>
+
+<footer>🌹 Spread Joy Everywhere 🌹</footer>
+
+<script>
+/* MUSIC */
+let play=false;
+const music=document.getElementById("music");
+function toggleMusic(){
+  play?music.pause():music.play();
+  play=!play;
+}
+
+/* NIGHT */
+function toggleNight(){
+  document.body.classList.toggle("night");
+  document.body.classList.contains("night")?makeStars():removeStars();
+}
+
+/* STARS */
+function makeStars(){
+  for(let i=0;i<80;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    document.body.appendChild(s);
+  }
+  let m=document.createElement("div");
+  m.className="moon";m.id="moon";m.innerText="🌙";
+  document.body.appendChild(m);
+}
+function removeStars(){
+  document.querySelectorAll(".star,#moon").forEach(e=>e.remove());
+}
+
+/* CONFETTI */
+function confetti(){
+  for(let i=0;i<25;i++){
+    let c=document.createElement("div");
+    c.className="petal";
+    c.innerText="🎉";
+    c.style.left=Math.random()*100+"vw";
+    c.style.animationDuration="3s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+/* BSF */
+function bsfYes(){
+  document.getElementById("bsfResult").innerText="💖 Yay! Best friends forever! 💖";
+  confetti();
+}
+function moveNo(){
+  const btn=document.getElementById("noBtn");
+  btn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*100-50}px)`;
+}
+
+/* WISH */
+function generateWish(){
+  const n=name.value||"Friend";
+  wish.innerText=`🌹 Happy Rose Day, ${n}!`;
+  confetti();
+}
+
+/* FLOWERS */
+function flowerRain(){
+  let p=document.createElement("div");
+  p.className="petal";
+  p.innerText="🌹";
+  p.style.left=Math.random()*100+"vw";
+  p.style.setProperty("--wind",(Math.random()*200-100)+"px");
+  p.style.animationDuration=Math.random()*5+5+"s";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),10000);
+}
+setInterval(flowerRain,350);
+</script>
+
+</body>
+</html>
